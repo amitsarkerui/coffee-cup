@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  h1 {
+  h1,
+  h2,
+  h4 {
     font-family: "Patua One", cursive;
   }
 }
