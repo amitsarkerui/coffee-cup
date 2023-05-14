@@ -1,10 +1,11 @@
 import React from "react";
-// import { data } from "autoprefixer";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const Add_Coffee = () => {
-  const handleAddCoffee = (e) => {
+const Update = () => {
+  const coffee = useLoaderData();
+  const { _id, name, chef, supplier, taste, category, details, photo } = coffee;
+  const handleUpdate = (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
@@ -15,27 +16,34 @@ const Add_Coffee = () => {
     const details = form.details.value;
     const photo = form.photo.value;
 
-    const newCoffee = { name, chef, supplier, taste, category, details, photo };
-    console.log(newCoffee);
-
-    fetch("http://localhost:5000/coffee", {
-      method: "POST",
+    const updateCoffee = {
+      name,
+      chef,
+      supplier,
+      taste,
+      category,
+      details,
+      photo,
+    };
+    console.log(updateCoffee);
+    fetch(`http://localhost:5000/coffee/${_id}`, {
+      method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(newCoffee),
+      body: JSON.stringify(updateCoffee),
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.insertedId) {
+        if (data.modifiedCount > 0) {
           Swal.fire({
-            title: "Coffee added successfully !",
+            title: "Coffee Updated Successfully!",
             text: "Do you want to continue",
             icon: "success",
-            confirmButtonText: "Yeah!",
+            confirmButtonText: "Yeah !",
           });
-          form.reset();
         }
+        form.reset();
       });
   };
   return (
@@ -69,7 +77,7 @@ const Add_Coffee = () => {
         </p>
         <div>
           <form
-            onSubmit={handleAddCoffee}
+            onSubmit={handleUpdate}
             className="grid grid-cols-1 gap-6 md:grid-cols-2"
           >
             <div className="">
@@ -78,7 +86,7 @@ const Add_Coffee = () => {
               </label>
               <input
                 type="text"
-                placeholder="Coffee Name"
+                defaultValue={name}
                 name="name"
                 className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               />
@@ -89,7 +97,7 @@ const Add_Coffee = () => {
               </label>
               <input
                 type="text"
-                placeholder="Chef Name"
+                defaultValue={chef}
                 name="chef"
                 className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               />
@@ -100,7 +108,7 @@ const Add_Coffee = () => {
               </label>
               <input
                 type="text"
-                placeholder="Coffee Supplier"
+                defaultValue={supplier}
                 name="supplier"
                 className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               />
@@ -111,7 +119,7 @@ const Add_Coffee = () => {
               </label>
               <input
                 type="text"
-                placeholder="Quite Roast Black"
+                defaultValue={taste}
                 name="taste"
                 className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               />
@@ -123,6 +131,7 @@ const Add_Coffee = () => {
               <div className="relative">
                 <select
                   name="category"
+                  defaultValue={category}
                   className="border-form-stroke text-body-color focus:border-primary active:border-primary w-full appearance-none rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
                 >
                   <option value="Rose Coffee">Rose Coffee</option>
@@ -138,7 +147,7 @@ const Add_Coffee = () => {
               </label>
               <input
                 type="text"
-                placeholder="Details"
+                defaultValue={details}
                 name="details"
                 className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               />
@@ -149,7 +158,7 @@ const Add_Coffee = () => {
               </label>
               <input
                 type="text"
-                placeholder="Photo URL"
+                defaultValue={photo}
                 name="photo"
                 className="border-form-stroke text-body-color placeholder-body-color focus:border-primary active:border-primary w-full rounded-lg border-[1.5px] py-3 px-5 font-medium outline-none transition disabled:cursor-default disabled:bg-[#F5F7FD]"
               />
@@ -157,7 +166,7 @@ const Add_Coffee = () => {
             <input
               className="btn btn-block col-span-2 my-5"
               type="submit"
-              value="Submit"
+              value="Update"
             />
           </form>
         </div>
@@ -166,4 +175,4 @@ const Add_Coffee = () => {
   );
 };
 
-export default Add_Coffee;
+export default Update;

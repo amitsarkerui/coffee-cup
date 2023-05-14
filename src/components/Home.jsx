@@ -1,11 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLoaderData } from "react-router-dom";
 import icon1 from "../../public/img/icons/1.png";
 import icon2 from "../../public/img/icons/2.png";
 import icon3 from "../../public/img/icons/3.png";
 import icon4 from "../../public/img/icons/4.png";
+import CoffeeCard from "./CoffeeCard";
 
 const Home = () => {
+  const loadedCoffees = useLoaderData();
+  const [coffees, setCoffees] = useState(loadedCoffees);
   return (
     <div>
       <div className="bg-[url('https://i.ibb.co/B40hgST/coffee-beans-top-view-white-background-space-text.jpg')] bg-cover bg-center py-72">
@@ -52,6 +55,15 @@ const Home = () => {
             </p>
           </div>
         </div>
+      </div>
+      <div className="container mx-auto grid grid-cols-1 gap-7 md:grid-cols-2">
+        {coffees.map((coffee) => (
+          <CoffeeCard
+            key={coffee._id}
+            coffee={coffee}
+            setCoffees={setCoffees}
+          ></CoffeeCard>
+        ))}
       </div>
     </div>
   );
