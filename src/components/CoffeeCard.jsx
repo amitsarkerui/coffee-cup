@@ -3,7 +3,7 @@ import { FaEye, FaPen, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const CoffeeCard = ({ coffee }) => {
+const CoffeeCard = ({ coffee, deleteHandler }) => {
   const { _id, name, chef, supplier, taste, category, details, photo } = coffee;
   const handleDelete = (id) => {
     Swal.fire({
@@ -23,6 +23,7 @@ const CoffeeCard = ({ coffee }) => {
           .then((data) => {
             if (data.deletedCount > 0) {
               Swal.fire("Deleted!", "Your file has been deleted.", "success");
+              deleteHandler(id);
             }
           });
       }
@@ -37,7 +38,10 @@ const CoffeeCard = ({ coffee }) => {
         <p>{details}</p>
       </div>
       <div className="btn-group btn-group-vertical justify-self-end">
-        <Link className="bg-orange-500 p-3 text-white rounded-md">
+        <Link
+          to={`singleCoffee/${_id}`}
+          className="bg-orange-500 p-3 text-white rounded-md"
+        >
           <FaEye />
         </Link>
         <Link

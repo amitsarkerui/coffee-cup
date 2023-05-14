@@ -9,6 +9,10 @@ import CoffeeCard from "./CoffeeCard";
 const Home = () => {
   const loadedCoffees = useLoaderData();
   const [coffees, setCoffees] = useState(loadedCoffees);
+  const deleteHandler = (id) => {
+    const restCoffee = loadedCoffees.filter((cp) => cp._id !== id);
+    setCoffees(restCoffee);
+  };
   return (
     <div>
       <div className="bg-[url('https://i.ibb.co/B40hgST/coffee-beans-top-view-white-background-space-text.jpg')] bg-cover bg-center py-72">
@@ -56,14 +60,76 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="container mx-auto grid grid-cols-1 gap-7 md:grid-cols-2">
-        {coffees.map((coffee) => (
-          <CoffeeCard
-            key={coffee._id}
-            coffee={coffee}
-            setCoffees={setCoffees}
-          ></CoffeeCard>
-        ))}
+      <div className="mb-24">
+        <h2 className="text-3xl text-center mt-20 mb-10">
+          Our Popular Products
+        </h2>
+        {/* <span className="w-full">
+          <Link
+            to={"/addCoffee"}
+            className="btn bg-amber-800 ml-8 text-center mx-auto"
+          >
+            Add a coffee
+          </Link>
+        </span> */}
+
+        <div className="container mx-auto grid grid-cols-1 gap-7 md:grid-cols-2">
+          {coffees.map((coffee) => (
+            <CoffeeCard
+              key={coffee._id}
+              coffee={coffee}
+              setCoffees={setCoffees}
+              deleteHandler={deleteHandler}
+            ></CoffeeCard>
+          ))}
+        </div>
+      </div>
+      <div className="container mx-auto mb-24">
+        <h2 className="text-3xl text-center mt-20 mb-10">
+          Follow us on Instagram
+        </h2>
+        <div className="grid gap-5 grid-cols-1 md:grid-cols-4">
+          <img
+            className="object-contain w-full"
+            src="https://i.ibb.co/6XQw64m/Rectangle-9.png"
+            alt=""
+          />
+          <img
+            className="object-contain w-full"
+            src="https://i.ibb.co/vmF5C6N/Rectangle-10.png"
+            alt=""
+          />
+          <img
+            className="object-contain w-full"
+            src="https://i.ibb.co/44LtYsy/Rectangle-11.png"
+            alt=""
+          />
+          <img
+            className="object-contain w-full"
+            src="https://i.ibb.co/0ZXbTs3/Rectangle-12.png"
+            alt=""
+          />
+          <img
+            className="object-contain w-full"
+            src="https://i.ibb.co/wWmczvX/Rectangle-13.png"
+            alt=""
+          />
+          <img
+            className="object-contain w-full"
+            src="https://i.ibb.co/tZFgtK1/Rectangle-14.png"
+            alt=""
+          />
+          <img
+            className="object-contain w-full"
+            src="https://i.ibb.co/BGVKwsZ/Rectangle-15.png"
+            alt=""
+          />
+          <img
+            className="object-contain w-full"
+            src="https://i.ibb.co/r3XTrKR/Rectangle-16.png"
+            alt=""
+          />
+        </div>
       </div>
     </div>
   );

@@ -68,7 +68,7 @@ const Update = () => {
         </span>
       </Link>
       <div className="bg-gray-200 mt-10 px-10 p-12 rounded-xl">
-        <h2 className="text-2xl text-center">Add New Coffee</h2>
+        <h2 className="text-2xl text-center">Update Coffee</h2>
         <p className="text-center max-w-2xl mx-auto my-5 text-gray-600">
           It is a long established fact that a reader will be distraceted by the
           readable content of a page when looking at its layout. The point of
